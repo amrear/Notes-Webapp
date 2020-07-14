@@ -1,3 +1,5 @@
+/* This script contains fadeOut function which makes messeges fade nice and smooth. */
+
 function fadeOut(el){
     el.style.opacity = 1;
 
