@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #ddd;
+        }
+
+        .wrapper {
+            background-color: #fff;
+            padding: 50px;
+            max-width: 400px;
+            margin: auto;
+            margin-top: 100px;
+            border-radius: 5px;
+        }
+    </style>
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, messege in messages %}
+        <div class="alert alert-{{ category }} flashed-message" role="alert">
+            {{ messege }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('login') }}">
+            <label for="username">Username</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">@</div>
+                </div>
+                <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <br>
+        <small>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up!</a></small>
+    </div>
+    <script src="{{ url_for('static', filename='fadeOut.js') }}"></script>
+</body>
+
+</html>

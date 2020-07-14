@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Notes!</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<!-- Boootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- Custom Style -->
+	<style>
+		.main {
+			margin: 15px auto 0 auto;
+			max-width: 1000px;
+		}
+
+		.submit-note {
+			display: block;
+			margin: 5px 0 0 auto;
+		}
+
+		.notes {
+			margin-top: 15px;
+		}
+
+		.no-notes {
+			text-indent: 30px;
+		}
+	</style>
+</head>
+
+<body>
+	<main class="container-fluid main">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+		{% for catagory, message in messages %}
+		<div class="alert alert-{{ catagory }} flashed-message" role="alert">
+			{{ message }}
+		</div>
+		{% endfor %}
+		{% endif %}
+		{% endwith %}
+		<div class="take-note">
+			<h2>Take a Note!</h2>
+			<hr>
+			<form class="form-group" method="post" action="{{ url_for('index') }}">
+				<label for="title">Title</label>
+				<input type="text" class="form-control" id="title" name="title" placeholder="Title">
+				<label for="body">Body</label>
+				<textarea class="form-control" id="body" name="body" rows="5"></textarea>
+				<button type="submit" class="btn btn-primary submit-note">Submit</button>
+			</form>
+		</div>
+		<div class="notes">
+			<h2>Your Notes!</h2>
+			<hr>
+			{% if not notes %}
+			<p class="no-notes">You don't have any notes!</p>
+			{% else %}
+			{% for title, body in notes %}
+			<div class="note">
+				<h4>{{ title.title() }}</h4>
+				<p>{{ body }}</p>
+			</div>
+			{% endfor %}
+			{% endif %}
+		</div>
+	</main>
+	<script src="{{ url_for('static', filename='fadeOut.js') }}"></script>
+</body>
+
+</html>
